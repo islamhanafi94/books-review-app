@@ -1,0 +1,29 @@
+{% extends "layout.html"%}
+
+{%block styles%}
+{{super()}}
+{%endblock%}
+
+{%block title%}
+login
+{%endblock%}
+
+
+{%block content%}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <form class="col-3" action="/login" method="POST">
+            <div class="form-group">
+                <label for="username">username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{%endblock%}
