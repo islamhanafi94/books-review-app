@@ -2,5 +2,4 @@ __pycache__/
 .flask-env
 flask_session/
 .env
-
-
+flask_session
