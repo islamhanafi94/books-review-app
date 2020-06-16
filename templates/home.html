@@ -1,0 +1,27 @@
+{% extends "layout.html"%}
+
+{%block styles%}
+{{super()}}
+{%endblock%}
+
+{%block title%}
+Home
+{%endblock%}
+
+
+{%block content%}
+
+{% for message in get_flashed_messages() %}
+<div class="d-flex justify-content-center my-3" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
+<div class="d-flex justify-content-center my-3">
+    <form class="form-inline justify-content-center w-75" action="/search" method="get">
+        <input class="form-control mr-sm-2 w-75" type="search" name="search_value"
+            placeholder="Search by ISBN or Book Title or Auther Name " aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+<hr>
+{%endblock%}

@@ -1,0 +1,32 @@
+{%include "home.html"%}
+
+
+{%if books_list %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">isbn</th>
+            <th scope="col">title</th>
+            <th scope="col">author</th>
+            <th scope="col">publication_year</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books_list %}
+        <tr>
+            <td scope="col">{{loop.index}}</td>
+            <td scope="col">{{book.isbn}}</td>
+            <td scope="col"><a href="{{url_for('book_page',isbn=book.isbn)}}">{{book.title}}</a></td>
+            <td scope="col">{{book.author}}</td>
+            <td scope="col">{{book.publication_year}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{% else %}
+<div class="d-flex justify-content-center my-3">
+    <h4>No books found !</h4>
+</div>
+
+{%endif%}

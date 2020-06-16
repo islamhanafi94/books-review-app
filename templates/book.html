@@ -1,0 +1,75 @@
+{% extends "layout.html"%}
+
+{%block styles%}
+{{super()}}
+{%endblock%}
+
+{%block title%}
+{{book['title']}}
+{%endblock%}
+
+{%block content%}
+<div class="container my-2">
+    <h3>
+        {{book["title"]}}
+        <small class="text-muted"><em>By {{book["author"]}}</em></small>
+    </h3>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% for number in range(1,6) %}
+    {%if book["average_rating"]|int >= number%}
+    <span class="fa fa-star checked"></span>
+    {%else%}
+    <span class="fa fa-star"></span>
+    {%endif%}
+    {% endfor %}
+    <em>{{book["average_rating"]}}</em>
+    <div class="text-muted"><strong>ISBN : {{book["isbn"]}}</strong></div>
+    <div class="text-muted"><strong>publication year : {{book["year"]}}</strong></div>
+    <div class="text-muted"><strong>{{book["ratings_count"]}} ratings</strong></div>
+    <style>
+        .checked {
+            color: orange;
+        }
+    </style>
+    <hr>
+</div>
+<div class="container">
+    <h4>Reviews :</h4>
+    {% for review in reviews %}
+    <div>
+        <h5>
+            <!-- {{book["title"]}} -->
+            {{review[4]}}
+            <small class="text-muted"><em>rating : {{review[3]}}/5</em></small>
+        </h5>
+        <h6 style="margin-left: 15px;"" class=" text-muted"><em>{{review[2]}}</em></h6>
+    </div>
+    {% endfor %}
+    <hr>
+    {% for message in get_flashed_messages() %}
+    <div class="d-flex justify-content-center my-3" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <form action="/review" method="post">
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <select class="ml-1" name="rating" id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="review">Add review :</label>
+            <textarea class="form-control" name="review" id="review" rows="3"></textarea>
+            <input type="hidden" id="book_id" name="book_id" value="{{book['isbn']}}">
+        </div>
+        <button type="submit" class="btn btn-primary">add Review</button>
+    </form>
+</div>
+{%endblock%}

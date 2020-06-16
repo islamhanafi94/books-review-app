@@ -1,46 +1,53 @@
-<form>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" id="inputPassword4">
+{% extends "layout.html"%}
+
+{%block styles%}
+{{super()}}
+{%endblock%}
+
+{%block title%}
+Register
+{%endblock%}
+
+
+{%block content%}
+{% with username_errors = get_flashed_messages(category_filter=["errors_username"]) %}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h1>Register</h1>
+            <form method="POST" action="/register">
+                <div class="form-group">
+                    <label for="username">username</label>
+                    <input type="text" class="form-control" name="username" id="username">
+                    {%if errors and errors["username"]%}
+                    <ul class="alert alert-danger">
+                        {%for error in errors["username"]%}
+                        <li>{{error}}</li>
+                        {%endfor%}
+                    </ul>
+                    {%endif%}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                    <label for="checkPassword">Re-enter password</label>
+                    <input type="password" name="checkPassword" class="form-control" id="checkPassword">
+                    {%if errors and errors["password"]%}
+                    <ul class="alert alert-danger">
+                        {%for error in errors["password"]%}
+                        <li>{{error}}</li>
+                        {%endfor%}
+                    </ul>
+                    {%endif%}
+                </div>
+                <div class="form-group">
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputAddress">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-        <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputState">State</label>
-            <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
-            </select>
-        </div>
-        <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-                Check me out
-            </label>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
+</div>
+
+{%endwith%}
+{%endblock%}
